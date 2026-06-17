@@ -1,0 +1,46 @@
+name: transparency-reports
+display_name: Transparency Reports
+description: Query public transparency reports — EU DSA VLOP content-moderation statistics and Google government content-removal requests — with a structured no-SQL query model over an async 202 + poll job API.
+category: other
+spec_url: https://transparency.kieranmaynard.com/openapi.json
+spec_format: json
+openapi_version: "3.1"
+tier: official
+spec_source: official
+verified_date: "2026-06-17"
+homepage: https://transparency.kieranmaynard.com
+auth_key_url: https://transparency.kieranmaynard.com/portal
+auth_required: true
+auth_instructions: Sign in at the researcher portal to mint an API key, then pass it as the X-API-Key header.
+regions:
+  - "*"
+api_language: en
+notes: |
+  Distinct async-job blueprint: POST /api/query returns 202 + job_id, the client
+  polls GET /api/jobs/{id} until status=done, then fetches
+  GET /api/jobs/{id}/result (json/csv). The only async 202 + poll job API in the
+  catalog — every other entry is synchronous request/response REST.
+
+  Query model is structured params, never SQL: a request names a table, then a
+  boolean and/or/not clause of {operation, field_name, field_values} plus
+  group_by, aggregates, sort, and max_count. The server validates each
+  field/operation against that table's fixed registry (GET /api/tables,
+  GET /api/fields?table=…) and compiles a single parameterised SELECT. Composite
+  cross-table queries are also supported (legs + join_on + derived ratios +
+  having).
+
+  Two public transparency-report datasets are exposed as queryable tables:
+    - EU DSA VLOP transparency reports (tables 3–11 of the DSA Implementing
+      Regulation template) — content-moderation statistics for the 33 designated
+      Very Large Online Platforms / Search Engines (H2 2025).
+    - Google Government Removal Requests (2019–2025) — government requests to
+      remove content from Google products, by period × country × requestor ×
+      product × reason.
+
+  Auth is an X-API-Key header (APIKeyHeader securityScheme). Discovery endpoints
+  are public and unauthenticated (GET /api/overview, GET /api/explore/options,
+  POST /api/explore), while the core job surface (POST /api/query,
+  GET/DELETE /api/jobs/...) and the NL POST /api/ask endpoint need a key. Done
+  jobs also expose HMAC-signed download URLs (GET /api/jobs/{id}/download) that
+  authorise a download without a key. The spec's first server is the public
+  deployment, so no base_url override is needed.
