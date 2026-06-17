@@ -1,5 +1,5 @@
-name: transparency-reports
-display_name: Transparency Reports
+name: transparency-report
+display_name: Transparency Report
 description: Query public transparency reports — EU DSA VLOP content-moderation statistics and Google government content-removal requests — with a structured no-SQL query model over an async 202 + poll job API.
 category: other
 spec_url: https://transparency.kieranmaynard.com/openapi.json
