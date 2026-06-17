@@ -33,7 +33,7 @@ monitoring:
 
 other:
   kayak                Flight, hotel, and car rental aggregator. No public API and no maintained community wrappers — reached by scraping embedded JSON from server-rendered pages.
-  transparency-reports Query public transparency reports — EU DSA VLOP content-moderation statistics and Google government content-removal requests — with a structured no-SQL query model over an async 202 + poll job API.
+  transparency-report  Query public transparency reports — EU DSA VLOP content-moderation statistics and Google government content-removal requests — with a structured no-SQL query model over an async 202 + poll job API.
 
 payments:
   mercury              Business banking API for accounts, transactions, payments, recipients, cards, invoices, treasury, and webhooks
