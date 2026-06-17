@@ -30,11 +30,11 @@ notes: |
 
   Auth is an X-API-Key header (APIKeyHeader securityScheme). Discovery endpoints
   are public and unauthenticated (GET /api/overview, GET /api/explore/options,
-  POST /api/explore, POST /api/ask), while the core job surface (POST /api/query,
-  GET/DELETE /api/jobs/...) needs a key. Done jobs also expose HMAC-signed
-  download URLs (GET /api/jobs/{id}/download) that authorise a download without a
-  key. The spec's first server is the public deployment, so no base_url override
-  is needed.
+  POST /api/explore), while the core job surface (POST /api/query,
+  GET/DELETE /api/jobs/...) and the NL POST /api/ask endpoint need a key. Done
+  jobs also expose HMAC-signed download URLs (GET /api/jobs/{id}/download) that
+  authorise a download without a key. The spec's first server is the public
+  deployment, so no base_url override is needed.
 
   Data: content-moderation statistics for the 33 designated EU DSA Very Large
   Online Platforms / Search Engines (H2 2025), tables 3–11 of the DSA
