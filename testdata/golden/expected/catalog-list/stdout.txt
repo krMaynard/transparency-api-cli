@@ -32,6 +32,7 @@ monitoring:
   sentry               Error tracking and performance monitoring - projects, issues, events, releases
 
 other:
+  dsa-transparency     Query the aggregated EU Digital Services Act VLOP transparency reports (tables 3–11) with a structured no-SQL query model over an async 202 + poll job API.
   kayak                Flight, hotel, and car rental aggregator. No public API and no maintained community wrappers — reached by scraping embedded JSON from server-rendered pages.
 
 payments:
