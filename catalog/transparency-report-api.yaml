@@ -7,11 +7,11 @@ spec_format: json
 openapi_version: "3.1"
 tier: official
 spec_source: official
-verified_date: "2026-06-17"
+verified_date: "2026-06-29"
 homepage: https://transparency.kieranmaynard.com
 auth_key_url: https://transparency.kieranmaynard.com/portal
 auth_required: true
-auth_instructions: Sign in at the researcher portal to mint an API key, then pass it as the X-API-Key header.
+auth_instructions: Sign in at the researcher portal with Google to mint a session key, then send it as the X-API-Key header. (A keyless demo-registration flow exists but is disabled in production.)
 regions:
   - "*"
 api_language: en
@@ -29,16 +29,25 @@ notes: |
   cross-table queries are also supported (legs + join_on + derived ratios +
   having).
 
-  Two public transparency-report datasets are exposed as queryable tables:
-    - EU DSA VLOP transparency reports (tables 3–11 of the DSA Implementing
-      Regulation template) — content-moderation statistics for the 33 designated
-      Very Large Online Platforms / Search Engines (H2 2025).
+  Queryable transparency-report datasets (tables 3–11 of the DSA Implementing
+  Regulation template, one star schema spanning multiple report tiers):
+    - EU DSA content-moderation reports for the 25 designated Very Large Online
+      Platforms / Search Engines (H2 2025), plus 45 non-VLOP platforms across
+      46 harmonised-template reports (online-platform, hosting, and intermediary
+      tiers — e.g. Discord, LINE, Nintendo eShop, Cloudflare, Roblox, Vinted).
+      POST /api/query and POST /api/explore span every tier; GET /api/overview
+      stays scoped to the designated-VLOP set.
     - Google Government Removal Requests (2019–2025) — government requests to
       remove content from Google products, by period × country × requestor ×
       product × reason.
+  A separate report-locations catalogue (GET /api/report-locations) indexes
+  where non-VLOP platforms publish their DSA transparency reports.
 
-  Auth is an X-API-Key header (APIKeyHeader securityScheme). Discovery endpoints
-  are public and unauthenticated (GET /api/overview, GET /api/explore/options,
+  Production auth is Google sign-in at the portal (POST /api/auth/google mints a
+  session key); a keyless demo-registration flow (POST /api/portal/register) is
+  available only when ALLOW_DEMO_KEYS is enabled. Either way the key is sent as an
+  X-API-Key header (APIKeyHeader securityScheme). Discovery endpoints are public
+  and unauthenticated (GET /api/overview, GET /api/explore/options,
   POST /api/explore), while the core job surface (POST /api/query,
   GET/DELETE /api/jobs/...) and the NL POST /api/ask endpoint need a key. Done
   jobs also expose HMAC-signed download URLs (GET /api/jobs/{id}/download) that
